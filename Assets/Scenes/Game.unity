@@ -170,6 +170,7 @@ GameObject:
   - 61: {fileID: 259585731}
   - 95: {fileID: 259585730}
   - 114: {fileID: 259585735}
+  - 82: {fileID: 259585736}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -284,15 +285,93 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_rigidBody2D: {fileID: 259585732}
   m_animator: {fileID: 259585730}
+  m_audioSource: {fileID: 259585736}
+  m_collider: {fileID: 0}
   m_transform: {fileID: 259585734}
-  m_healthBar: {fileID: 0}
+  m_healthBar: {fileID: 668153584}
   m_staminaBar: {fileID: 1581728924}
+  runSound: {fileID: 8300000, guid: 2f76c8abc482547339edfe0920aa4c83, type: 3}
   health: 0
   stamina: 0
   walkSpeed: 10
   runSpeed: 25
+  jumpSpeed: 25
   depleteStamina: 1
   gravity: -9
+--- !u!82 &259585736
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 259585729}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &265010020
 GameObject:
   m_ObjectHideFlags: 0

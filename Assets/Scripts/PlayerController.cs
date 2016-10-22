@@ -5,14 +5,19 @@ public class PlayerController : MonoBehaviour {
 
 	public Rigidbody2D m_rigidBody2D;
 	public Animator m_animator;
+	public AudioSource m_audioSource;
+	public BoxCollider2D m_collider;
 	public Transform m_transform;
 	public Transform m_healthBar;
 	public Transform m_staminaBar;
+
+	public AudioClip runSound;
 
 	public float health;
 	public float stamina;
 	public float walkSpeed;
 	public float runSpeed;
+	public float jumpSpeed;
 
 	public float depleteStamina = 10.0f;
 	public float gravity = -9.0f;
@@ -23,6 +28,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		health = 100;
 		stamina = 100;
+		m_audioSource.clip = runSound;
 	}
 	
 	// Update is called once per frame
@@ -38,7 +44,9 @@ public class PlayerController : MonoBehaviour {
 		float x = 0;
 		float y = 0;
 
-		if (h < 0) {
+		float threshold = 0.5f;
+
+		if (h < -threshold) {
 			// Flip
 			Flip(true);
 
@@ -46,7 +54,7 @@ public class PlayerController : MonoBehaviour {
 			x = -1;
 		}
 
-		if (h > 0) {
+		if (h > threshold) {
 			// Flip?
 			Flip(false);
 				
@@ -62,6 +70,7 @@ public class PlayerController : MonoBehaviour {
 			if (stamina > 10) {
 				x = x * runSpeed;
 				Tire (depleteStamina);
+
 			} 
 
 			else
@@ -72,6 +81,19 @@ public class PlayerController : MonoBehaviour {
 		{
 			Rest (depleteStamina * 1.5f);
 			x = x * walkSpeed;
+
+		}
+
+		if (x != 0) {
+			if(!m_audioSource.isPlaying)
+				m_audioSource.Play ();
+		} else {
+			if(m_audioSource.isPlaying) 
+				m_audioSource.Pause ();
+		}
+
+		if (Input.GetKey (KeyCode.Space)){
+			y += jumpSpeed;
 		}
 
 
