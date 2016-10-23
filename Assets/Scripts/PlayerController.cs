@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour {
 	float totalTime = 28800;
 	float currentTime = 0;
 
+	bool controllable;
 	bool mapActive;
 
 	// Use this for initialization
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour {
 		m_audioSource.clip = runSound;
 		mapActive = true;
 		Reset ();
+		controllable = true;
 
 	}
 
@@ -65,12 +67,14 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
 
 
 	void FixedUpdate() {
-		m_transform.rotation =  Quaternion.Euler (0, 0, 0);
+		if (!controllable)
+			return;
+		
+		m_transform.rotation =  Quaternion.Eulers (0, 0, 0);
 		m_animator.SetBool ("Shooting", false);
 
 		isGrounded = Physics2D.OverlapCircle(m_transform.position, 1.8f, groundLayer);
