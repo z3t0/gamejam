@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour {
 		m_rigidBody2D.velocity = new Vector2 (x, y + gravity);
 
 		if(Time.timeSinceLevelLoad == totalTime) {
-			m_gameManager.NextLevel ();
+			m_gameManager.Win ();
 		}
 
 		SetBar (((Time.timeSinceLevelLoad - m_gameManager.initialTime) * 240) / totalTime, m_timeBar); 

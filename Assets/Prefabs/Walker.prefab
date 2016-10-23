@@ -192,7 +192,7 @@ MonoBehaviour:
   hurtSound: {fileID: 8300000, guid: 147a6e60ec1cd4ac096277494d59d392, type: 3}
   sensed: 0
   walkSpeed: 5
-  runSpeed: 15
+  runSpeed: 10
 --- !u!212 &212000012395823282
 SpriteRenderer:
   m_ObjectHideFlags: 1

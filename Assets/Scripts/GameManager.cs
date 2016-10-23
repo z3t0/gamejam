@@ -23,9 +23,16 @@ public class GameManager : MonoBehaviour {
 
 	public bool hasUsedElevator;
 
+	public AudioClip winGameSound;
+	public AudioClip loseGameSound;
+
 	float elevatorCountDown = 0;
 	float countDownLength = 3f;
 	bool counting = false;
+
+	public AudioSource m_audioSource;
+
+	public GameObject endGameObject;
 
 	// Use this for initialization
 	void Start () {
@@ -121,6 +128,24 @@ public class GameManager : MonoBehaviour {
 
 	public void ElevatorStatus(bool status) {
 		hasUsedElevator = status;
+	}
+
+	public void Fired() {
+		m_audioSource.clip = loseGameSound;
+		m_audioSource.Play ();
+		endGameObject.SetActive (true);
+		endGameObject.GetComponent<Text> ().text = "You're fired!";
+		endGameObject.GetComponent<Text> ().color = Color.red;
+		Time.timeScale = 0;
+	}
+
+	public void Win() {
+		m_audioSource.clip = winGameSound;
+		m_audioSource.Play ();
+		endGameObject.SetActive (true);
+		endGameObject.GetComponent<Text> ().text = "You survived the day!";
+		endGameObject.GetComponent<Text> ().color = Color.green;
+		Time.timeScale = 0;
 	}
 
 }
