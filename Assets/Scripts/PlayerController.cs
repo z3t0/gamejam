@@ -130,8 +130,11 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		if (Input.GetKey (KeyCode.UpArrow) && isGrounded){
-			y += jumpSpeed;
-			Tire (15f);
+			if (stamina > 15f) {
+				y += jumpSpeed;
+				Tire (15f);
+			}
+
 		}
 
 		if (Input.GetKeyDown (KeyCode.R)) {
