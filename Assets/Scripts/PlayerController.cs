@@ -48,12 +48,14 @@ public class PlayerController : MonoBehaviour {
 	float totalTime = 28800;
 	float currentTime = 0;
 
+	bool mapActive;
+
 	// Use this for initialization
 	void Start () {
 		health = 100;
 		stamina = 100;
 		m_audioSource.clip = runSound;
-
+		mapActive = true;
 		Reset ();
 
 	}
@@ -136,7 +138,8 @@ public class PlayerController : MonoBehaviour {
 			Reset ();
 		}
 		if (Input.GetKeyDown (KeyCode.M)) {
-			MiniMap.SetActive (!MiniMap.active);
+			mapActive = !mapActive;
+			MiniMap.SetActive (mapActive);
 		}
 
 		if (Input.GetKey(KeyCode.Space)) {
