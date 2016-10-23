@@ -157,7 +157,8 @@ public class GameManager : MonoBehaviour {
 		endGameObject.SetActive (true);
 		endGameObject.GetComponent<Text> ().text = "You're fired!";
 		endGameObject.GetComponent<Text> ().color = Color.red;
-		Time.timeScale = 0;
+//		Time.timeScale = 0;
+		m_playerController.controllable = false;
 		Debug.Log ("end game");
 	}
 

@@ -36,7 +36,11 @@ public class WorkerController : MonoBehaviour {
 		sensed = false;
 		hasSensed = false;
 	}
-	
+
+	void FixedUpdate() {
+		m_transform.rotation =  Quaternion.Euler (0, 0, 0);
+	}
+
 	// Update is called once per frame
 	void Update () {
 

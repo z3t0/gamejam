@@ -37,6 +37,10 @@ public class BossController : MonoBehaviour {
 		hasSensed = false;
 	}
 
+	void FixedUpdate() {
+		m_transform.rotation =  Quaternion.Euler (0, 0, 0);
+	}
+
 	// Update is called once per frame
 	void Update () {
 
@@ -94,7 +98,7 @@ public class BossController : MonoBehaviour {
 
 	}
 
-	void OnCollisionEnter2D(Collision2D other) {
+	void OnTriggerEter(Collision2D other) {
 		if (other.gameObject.tag == "wall") {
 
 		}

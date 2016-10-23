@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour {
 	float totalTime = 28800;
 	float currentTime = 0;
 
-	bool controllable;
+	public bool controllable;
 	bool mapActive;
 
 	// Use this for initialization
@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour {
 		if (!controllable)
 			return;
 		
-		m_transform.rotation =  Quaternion.Eulers (0, 0, 0);
+		m_transform.rotation =  Quaternion.Euler (0, 0, 0);
 		m_animator.SetBool ("Shooting", false);
 
 		isGrounded = Physics2D.OverlapCircle(m_transform.position, 1.8f, groundLayer);
@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour {
 				m_audioSource.Pause ();
 		}
 
-		if (Input.GetKey (KeyCode.UpArrow) && isGrounded){
+		if ((Input.GetKey (KeyCode.UpArrow) || (Input.GetKey(KeyCode.W))) && isGrounded){
 			if (stamina > 15f) {
 				y += jumpSpeed;
 				Tire (15f);
@@ -150,7 +150,6 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		if (Input.GetKey(KeyCode.Space)) {
-			Vector3 pos = m_camera.ScreenToWorldPoint (Input.mousePosition);
 			Debug.Log ("click");
 
 			if (!shooting) {

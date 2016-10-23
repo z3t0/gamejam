@@ -10,10 +10,15 @@ public class DeskWorker : MonoBehaviour {
 	public GameManager m_gameManager;
 	public AudioSource m_audioSource;
 	public AudioClip hurtSound;
+	public Transform m_transform;
 
 	// Use this for initialization
 	void Start () {
-	
+		m_transform = GetComponent<Transform> ();
+	}
+
+	void FixedUpdate() {
+		m_transform.rotation =  Quaternion.Euler (0, 0, 0);
 	}
 	
 	// Update is called once per frame
