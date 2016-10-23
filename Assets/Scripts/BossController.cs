@@ -40,6 +40,10 @@ public class BossController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if (Physics2D.OverlapCircle (m_transform.position, 0.5f, playerLayer)) {
+			m_gameManager.Fired ();
+		}
+
 		currentDirection = direction;
 		speed = walkSpeed;
 
@@ -55,7 +59,6 @@ public class BossController : MonoBehaviour {
 			sensed = Physics2D.OverlapCircle(m_transform.position, 8f, playerLayer);
 
 		if (sensed) {
-			m_animator.SetFloat ("Speed", 0.7f);
 
 			float x = m_gameManager.m_playerTransform.position.x;
 
@@ -75,7 +78,6 @@ public class BossController : MonoBehaviour {
 
 
 		} else if (!sensed) {
-			m_animator.SetFloat ("Speed", 0.3f);
 
 
 			if (countDown <= 0.0f) {
@@ -93,9 +95,7 @@ public class BossController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D other) {
-		if (other.gameObject.tag == "player") {
-			Fired ();
-		} else if (other.gameObject.tag == "wall") {
+		if (other.gameObject.tag == "wall") {
 
 		}
 	}

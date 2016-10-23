@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour {
 	bool counting = false;
 
 	public AudioSource m_audioSource;
+	public Camera m_camera;
 
 	public GameObject endGameObject;
 
@@ -151,21 +152,15 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Fired() {
-		m_audioSource.clip = loseGameSound;
-		m_audioSource.Play ();
+		m_camera.gameObject.GetComponent<AudioSource>().clip = loseGameSound;
+		m_camera.gameObject.GetComponent<AudioSource> ().Play ();
 		endGameObject.SetActive (true);
 		endGameObject.GetComponent<Text> ().text = "You're fired!";
 		endGameObject.GetComponent<Text> ().color = Color.red;
 		Time.timeScale = 0;
+		Debug.Log ("end game");
 	}
 
-	public void Win() {
-		m_audioSource.clip = winGameSound;
-		m_audioSource.Play ();
-		endGameObject.SetActive (true);
-		endGameObject.GetComponent<Text> ().text = "You survived the day!";
-		endGameObject.GetComponent<Text> ().color = Color.green;
-		Time.timeScale = 0;
-	}
+
 
 }

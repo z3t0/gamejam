@@ -68,7 +68,9 @@ public class PlayerController : MonoBehaviour {
 		
 	}
 
+
 	void FixedUpdate() {
+		m_transform.rotation =  Quaternion.Euler (0, 0, 0);
 		m_animator.SetBool ("Shooting", false);
 
 		isGrounded = Physics2D.OverlapCircle(m_transform.position, 1.8f, groundLayer);
@@ -155,11 +157,6 @@ public class PlayerController : MonoBehaviour {
 
 
 		m_rigidBody2D.velocity = new Vector2 (x, y + gravity);
-
-		if(Time.timeSinceLevelLoad == totalTime) {
-			m_gameManager.Win ();
-		}
-
 
 	}
 
