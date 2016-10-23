@@ -20,9 +20,8 @@ public class DeskWorker : MonoBehaviour {
 	void Update () {
 	
 	}
-
-	void OnTriggerEnter2D(Collider2D other) {
-		Debug.Log ("Hit");
+	void OnCollisionEnter2D(Collision2D other) {
+		Debug.Log ("Collision");
 		if (other.gameObject.tag == "weapon") {
 			Debug.Log ("Killed enemy");
 			Die ();

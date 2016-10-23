@@ -17,6 +17,7 @@ public class WorkerController : MonoBehaviour {
 	public AudioClip hurtSound;
 
 	public bool sensed;
+	bool hasSensed;
 
 	float direction = 1;
 	float countDownLength = 3.0f;
@@ -28,45 +29,61 @@ public class WorkerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		sensed = false;
+		hasSensed = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		sensed = Physics2D.OverlapCircle(m_transform.position, 5f, playerLayer);
+
+		float currentDirection = direction;
+		float speed = walkSpeed;
+
+		if(hasSensed)
+			sensed = Physics2D.OverlapCircle(m_transform.position, 13f, playerLayer);
+		else
+			sensed = Physics2D.OverlapCircle(m_transform.position, 8f, playerLayer);
 
 		if (sensed) {
-
 			m_animator.SetFloat ("Speed", 0.7f);
 
 			float x = m_gameManager.m_playerTransform.position.x;
 
 			if (x > m_transform.position.x) {
 				direction = -1f;
+
 			}
 			else if (x < m_transform.position.x) {
 				direction = 1f;
+
 			}
-			m_rigidBody2D.velocity = new Vector2 (runSpeed * direction, -9f);
-			m_transform.localScale = new Vector3 (m_transform.localScale.x * -1, m_transform.localScale.y, m_transform.localScale.z);
+
+			speed = runSpeed;
+
+			hasSensed = true;
 
 
 
 		} else if (!sensed) {
 			m_animator.SetFloat ("Speed", 0.3f);
-			m_rigidBody2D.velocity = new Vector2 (walkSpeed * direction, -9f);
-		
+
 
 			if (countDown <= 0.0f) {
-				Flip ();
+				direction = direction * -1f;
 				countDown = countDownLength;
 			} else {
 				countDown -= 1 * Time.deltaTime;
 			}
+
+			hasSensed = false;
 		}
+
+		m_rigidBody2D.velocity = new Vector2(speed * direction, - 9f);
+		if (direction != currentDirection)
+			m_transform.localScale = new Vector3 (m_transform.localScale.x * -1f, m_transform.localScale.y, m_transform.localScale.z);
 	}
 
-	void OnTriggerEnter2D(Collider2D other) {
-		Debug.Log ("Hit");
+	void OnCollisionEnter2D(Collision2D other) {
+		Debug.Log ("Collision");
 		if (other.gameObject.tag == "weapon") {
 			Debug.Log ("Killed enemy");
 			Die ();
