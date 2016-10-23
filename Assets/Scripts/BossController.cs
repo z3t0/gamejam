@@ -117,7 +117,7 @@ public class BossController : MonoBehaviour {
 
 	}
 
-	void OnTriggerEter(Collision2D other) {
+	void OnTriggerEnter(Collision2D other) {
 		if (other.gameObject.tag == "wall") {
 
 		}
@@ -125,7 +125,7 @@ public class BossController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D other) {
 		if (other.gameObject.tag == "weapon") {
-			Hurt ();
+  			Hurt ();
 		} else if (other.gameObject.tag == "wall") {
 
 		}
@@ -133,7 +133,7 @@ public class BossController : MonoBehaviour {
 		
 
 	void Hurt() {
-		health -= (health / maxHealth);
+		health -= 1;
 		if (health <= 0)
 			Die ();
 		healthBar.localScale = new Vector3 (health / maxHealth, healthBar.localScale.y, healthBar.localScale.z);
