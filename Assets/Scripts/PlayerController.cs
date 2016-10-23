@@ -9,9 +9,11 @@ public class PlayerController : MonoBehaviour {
 	public BoxCollider2D m_collider;
 	public Camera m_camera;
 	public Transform m_transform;
-	public Transform m_healthBar;
+	public Transform m_timeBar;
 	public Transform ballSpawn;
 	public Transform m_staminaBar;
+
+	public GameManager m_gameManager;
 
 	public LayerMask groundLayer;
 	public LayerMask playerLayer;
@@ -40,14 +42,16 @@ public class PlayerController : MonoBehaviour {
 	Vector3 shootPos;
 	bool shooting;
 
+	float totalTime = 28800;
+	float currentTime = 0;
+
 	// Use this for initialization
 	void Start () {
 		health = 100;
 		stamina = 100;
 		m_audioSource.clip = runSound;
 
-		// Ignore collisions between ball and player
-		Physics2D.IgnoreLayerCollision(9, 10, true);
+	
 
 	}
 	
@@ -55,10 +59,11 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 		if (Input.GetMouseButtonDown (0)) {
 			Vector3 pos = m_camera.ScreenToWorldPoint (Input.mousePosition);
+			Debug.Log ("click");
+
 			if (!shooting) {
 				Debug.Log ("shoot");
 				m_animator.SetBool ("Shooting", true);
-				shooting = true;
 			}
 		}
 	}
@@ -129,6 +134,12 @@ public class PlayerController : MonoBehaviour {
 
 
 		m_rigidBody2D.velocity = new Vector2 (x, y + gravity);
+
+		if(Time.timeSinceLevelLoad == totalTime) {
+			m_gameManager.NextLevel ();
+		}
+
+		SetBar (((Time.timeSinceLevelLoad - m_gameManager.initialTime) * 240) / totalTime, m_timeBar); 
 	}
 
 	// Action
@@ -145,19 +156,9 @@ public class PlayerController : MonoBehaviour {
 			else 
 				ball.GetComponent<Rigidbody2D>().AddForce(new Vector2(shootX, shootY), ForceMode2D.Impulse);
 			shooting = true;
-		}
-	}
 
-	void Heal(float val)
-	{
-		if (health < 100) {
-			if ((health + val) > 100)
-				health = 100;
-			else
-				health += val;
+			ball.GetComponent<AudioSource> ().Play ();
 		}
-
-		SetBar (health, m_healthBar);
 	}
 
 	void Rest (float val) {
@@ -169,15 +170,7 @@ public class PlayerController : MonoBehaviour {
 		}
 		SetBar (stamina, m_staminaBar);
 	}
-
-	void Hurt(float val) {
-		health -= val;
-		SetBar (health, m_healthBar);
-
-		if (health <= 0) {
-			Die ();
-		}
-	}
+				
 
 	void Tire(float val) {
 		stamina -= val;
@@ -198,7 +191,8 @@ public class PlayerController : MonoBehaviour {
 
 	// UI
 	void SetBar(float val, Transform bar) {
-		val = val / 100;
+		if(val > 1)
+			val = val / 100;
 
 		bar.localScale = new Vector3 (val, bar.localScale.y, bar.localScale.y);
 	}
