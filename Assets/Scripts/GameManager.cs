@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour {
 	float elevatorCountDown = 0;
 	float countDownLength = 3f;
 	bool counting = false;
-
+		
 	public AudioSource m_audioSource;
 	public Camera m_camera;
 

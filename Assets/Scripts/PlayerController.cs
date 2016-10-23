@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
 	public Transform m_transform;
 	public Transform ballSpawn;
 	public Transform m_staminaBar;
+	public Transform m_HealthBar;
 	public Transform m_resetTarget;
 
 	public GameManager m_gameManager;
@@ -43,11 +44,18 @@ public class PlayerController : MonoBehaviour {
 	Vector3 shootPos;
 	bool shooting;
 
+	public float health = 3;
+
 	float totalTime = 28800;
 	float currentTime = 0;
 
 	public bool controllable;
 	bool mapActive;
+
+	bool canHurt = true;
+
+	float countDown = 0;
+	float countDownLength = 3f;
 
 	// Use this for initialization
 	void Start () {
@@ -56,6 +64,7 @@ public class PlayerController : MonoBehaviour {
 		mapActive = true;
 		Reset ();
 		controllable = true;
+
 
 	}
 
@@ -67,11 +76,23 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
 	}
 
 
 	void FixedUpdate() {
-		
+
+		if (!canHurt) {
+			if (countDown == 0) {
+				countDown = countDownLength;
+			} else if (countDown > 0) {
+				countDown -= 1 * Time.deltaTime;
+			} else if (countDown < 0) {
+				countDown = 0;
+				canHurt = true;
+			}
+		}
+
 		
 		m_transform.rotation =  Quaternion.Euler (0, 0, 0);
 
@@ -167,6 +188,20 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	// Action
+	public void Hurt() {
+		if (canHurt) {
+			
+			health -= 1;
+			canHurt = false;
+
+			m_HealthBar.transform.localScale = new Vector3(health / 3, m_HealthBar.transform.localScale.y, m_HealthBar.transform.localScale.z);
+
+			if (health <= 0) {
+				m_gameManager.Fired ();
+			}
+		}
+	}
+
 	public void hasShot() {
 		m_animator.SetBool ("Shooting", false);
 		shooting = false;

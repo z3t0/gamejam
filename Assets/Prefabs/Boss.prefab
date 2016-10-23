@@ -282,7 +282,7 @@ MonoBehaviour:
   sensed: 0
   walkSpeed: 5
   runSpeed: 13
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 4000013315203592}
 --- !u!212 &212000012382793812
 SpriteRenderer:
   m_ObjectHideFlags: 1

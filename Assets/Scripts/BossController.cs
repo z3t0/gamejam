@@ -64,7 +64,7 @@ public class BossController : MonoBehaviour {
 		speed = m_gameManager.level * 3;
 
 		if (Physics2D.OverlapCircle (m_transform.position, 0.5f, playerLayer)) {
-			m_gameManager.Fired ();
+			m_gameManager.m_playerController.Hurt ();
 		}
 
 		currentDirection = direction;
@@ -117,7 +117,7 @@ public class BossController : MonoBehaviour {
 
 	}
 
-	void OnTriggerEnter(Collision2D other) {
+	void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.tag == "wall") {
 
 		}
