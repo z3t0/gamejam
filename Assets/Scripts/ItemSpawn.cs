@@ -35,27 +35,25 @@ public class ItemSpawn : MonoBehaviour {
 
 	public void Decide() {
 
-		if (m_transform.childCount > 0)
+		if (countDown != 0)
 			return;
 
-		Spawn (staplerPrefab);
+
+		int chance = Random.Range (1, 100);
+		int difficulty = m_gameManager.level;
 
 
-//		int chance = Random.Range (1, 100);
-//		int difficulty = m_gameManager.level;
-//
-//
-//		if ((chance/difficulty) <= 15) {
-//			Spawn (staplerPrefab);
-//		}
-//
-//		else if ((chance / difficulty) <=50) {
-//			Spawn (paperPrefab);
-//		} 
-//		//			
-//		else if ((chance / difficulty) <=80) { // probability of 25%
-//			Spawn (penPrefab);
-//		} 
+		if ((chance/difficulty) <= 15) {
+			Spawn (staplerPrefab);
+		}
+
+		else if ((chance / difficulty) <=50) {
+			Spawn (paperPrefab);
+		} 
+		//			
+		else if ((chance / difficulty) <=80) { // probability of 25%
+			Spawn (penPrefab);
+		} 
 
 	}
 

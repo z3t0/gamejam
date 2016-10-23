@@ -144,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_gameManager: {fileID: 0}
   m_spawn: {fileID: 0}
-  pointsGained: 0
+  pointsGained: 20
 --- !u!212 &212000013965438304
 SpriteRenderer:
   m_ObjectHideFlags: 1

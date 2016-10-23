@@ -56,12 +56,12 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		foreach (EnemySpawn spawn in enemySpawns) {
-			if (!spawn.hasSpawned)
+			if (spawn.m_transform.childCount == 0)
 				spawn.Decide ();
 		}
 
 		foreach (ItemSpawn spawn in itemSpawns) {
-			if (!spawn.hasSpawned)
+			if (spawn.m_transform.childCount == 0)
 				spawn.Decide ();
 		}
 
