@@ -37,7 +37,6 @@ public class EnemySpawn : MonoBehaviour {
 	}
 
 	public void Decide() {
-		
 		if (m_transform.childCount > 0)
 			return;
 		
@@ -46,23 +45,28 @@ public class EnemySpawn : MonoBehaviour {
 		int difficulty = m_gameManager.level;
 
 		// Boss
-//		if (chance <= (5 * difficulty)) {
-//			spawnBoss ();
-//		}
+		if (chance <= (5 * difficulty)) {
+			spawnBoss ();
+		}
 
-		//		else if (chance <= 30) {
-		if (chance <= 30) {
+		else if (chance <= (difficulty * 10)) {
 			spawnDeskPerson ();
 		} 
-//			
-		else if (chance <= 75) { // probability of 25%
+			
+		else if (chance <= (difficulty * 15)) { // probability of 25%
 			spawnWorker ();
 		} 
 
 	}
 
 	void spawnBoss() {
+		hasSpawned = true;
+		GameObject go = Instantiate (bossPrefab, m_transform) as GameObject;
+		BossController worker = go.GetComponent<BossController> ();
+		go.GetComponent<Transform> ().localPosition = new Vector3 (0, 0, 0);
 
+		worker.m_spawn = this;
+		worker.m_gameManager = m_gameManager;
 	}
 
 	void spawnWorker() {

@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour {
 	public BoxCollider2D m_collider;
 	public Camera m_camera;
 	public Transform m_transform;
-	public Transform m_timeBar;
 	public Transform ballSpawn;
 	public Transform m_staminaBar;
 	public Transform m_resetTarget;
@@ -24,7 +23,6 @@ public class PlayerController : MonoBehaviour {
 	public GameObject ballPrefab;
 	public AudioClip runSound;
 
-	public float health;
 	public float stamina;
 	public float walkSpeed;
 	public float runSpeed;
@@ -52,7 +50,6 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		health = 100;
 		stamina = 100;
 		m_audioSource.clip = runSound;
 		mapActive = true;
@@ -163,7 +160,7 @@ public class PlayerController : MonoBehaviour {
 			m_gameManager.Win ();
 		}
 
-		SetBar (((Time.timeSinceLevelLoad - m_gameManager.initialTime) * 240) / totalTime, m_timeBar); 
+
 	}
 
 	// Action

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BoxController : MonoBehaviour {
+public class BossController : MonoBehaviour {
 
 	public int pointsGained;
 

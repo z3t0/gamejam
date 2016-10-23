@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
 	[SerializeField]
 	private Elevator[] elevators;
 	private ItemSpawn[] itemSpawns;
-	public int level = 1;
+	public int level = 0;
 	public int floor = 1;
 	public int score = 0;
 
@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
 	public PlayerController m_playerController;
 
 	public Text scoreText;
+	public Text levelText;
 
 	public bool hasUsedElevator;
 
@@ -34,8 +35,12 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject endGameObject;
 
+	public float timer = 0f;
+	public float timerLength = 30f;
+
 	// Use this for initialization
 	void Start () {
+
 
 		enemySpawns = Object.FindObjectsOfType (typeof(EnemySpawn)) as EnemySpawn[];
 		elevators = Object.FindObjectsOfType (typeof(Elevator)) as Elevator[];
@@ -48,6 +53,9 @@ public class GameManager : MonoBehaviour {
 		Physics2D.IgnoreLayerCollision(10, 11, true);
 		Physics2D.IgnoreLayerCollision(10, 12, true);
 		Physics2D.IgnoreLayerCollision(10, 13, true);
+		Physics2D.IgnoreLayerCollision(12, 13, true);
+		Physics2D.IgnoreLayerCollision(12, 11, true);
+		Physics2D.IgnoreLayerCollision(13, 11, true);
 		// enemies among themselves
 
 		// Power up and enemies
@@ -58,10 +66,22 @@ public class GameManager : MonoBehaviour {
 		initialTime = Time.timeSinceLevelLoad;
 
 		hasUsedElevator = false;
+
+		level = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		levelText.text = "Level: " + level.ToString();
+
+		if (timer == 0f) {
+			level++;
+			timer = timerLength;
+		} else {
+			timer -= 1f * Time.deltaTime;
+		}
+				
 		foreach (EnemySpawn spawn in enemySpawns) {
 			if (spawn.m_transform.childCount == 0)
 				spawn.Decide ();
