@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
+
 	void Reset() {
 		m_transform.position = m_resetTarget.position;
 		m_transform.rotation = Quaternion.Euler (0, 0, 0);

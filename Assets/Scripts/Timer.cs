@@ -18,6 +18,7 @@ public class Timer : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D other) {
 		m_rigidBody2D.mass = 1000;
 		m_rigidBody2D.velocity = new Vector2 (0, -9f);
+		GetComponent<BoxCollider2D> ().enabled = false;
 		LateCall ();
 	}
 

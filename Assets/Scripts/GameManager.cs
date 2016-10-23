@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 	private EnemySpawn[] enemySpawns;
 	[SerializeField]
 	private Elevator[] elevators;
+	private ItemSpawn[] itemSpawns;
 	public int level = 1;
 	public int floor = 1;
 	public int score = 0;
@@ -31,12 +32,21 @@ public class GameManager : MonoBehaviour {
 
 		enemySpawns = Object.FindObjectsOfType (typeof(EnemySpawn)) as EnemySpawn[];
 		elevators = Object.FindObjectsOfType (typeof(Elevator)) as Elevator[];
+		itemSpawns = Object.FindObjectsOfType (typeof(ItemSpawn)) as ItemSpawn[];
 
 
 		// Ignore collisions between ball and player
 		Physics2D.IgnoreLayerCollision(9, 10, true);
 		// Playr and enemy
 		Physics2D.IgnoreLayerCollision(10, 11, true);
+		Physics2D.IgnoreLayerCollision(10, 12, true);
+		Physics2D.IgnoreLayerCollision(10, 13, true);
+		// enemies among themselves
+
+		// Power up and enemies
+		Physics2D.IgnoreLayerCollision(11, 14, true);
+		Physics2D.IgnoreLayerCollision(12, 14, true);
+		Physics2D.IgnoreLayerCollision(13, 14, true);
 
 		initialTime = Time.timeSinceLevelLoad;
 
@@ -46,6 +56,11 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		foreach (EnemySpawn spawn in enemySpawns) {
+			if (!spawn.hasSpawned)
+				spawn.Decide ();
+		}
+
+		foreach (ItemSpawn spawn in itemSpawns) {
 			if (!spawn.hasSpawned)
 				spawn.Decide ();
 		}
@@ -69,7 +84,7 @@ public class GameManager : MonoBehaviour {
 	public void AddScore(int val) {
 		score += val;
 		scoreText.text = "Score: " + score.ToString ();
-
+		GetComponent<AudioSource> ().Play ();
 	}
 
 	public void GoToFloor(int target) {

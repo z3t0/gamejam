@@ -26,6 +26,11 @@ public class WorkerController : MonoBehaviour {
 	public float walkSpeed = 5.0f;
 	public float runSpeed = 15.0f;
 
+	float currentDirection;
+	bool flip = false;
+
+	float speed = 0;
+
 	// Use this for initialization
 	void Start () {
 		sensed = false;
@@ -35,8 +40,14 @@ public class WorkerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		float currentDirection = direction;
-		float speed = walkSpeed;
+		currentDirection = direction;
+		speed = walkSpeed;
+
+		if (flip) {
+			direction = -1f;
+			Flip ();
+			return;
+		}
 
 		if(hasSensed)
 			sensed = Physics2D.OverlapCircle(m_transform.position, 13f, playerLayer);
@@ -77,16 +88,15 @@ public class WorkerController : MonoBehaviour {
 			hasSensed = false;
 		}
 
-		m_rigidBody2D.velocity = new Vector2(speed * direction, - 9f);
-		if (direction != currentDirection)
-			m_transform.localScale = new Vector3 (m_transform.localScale.x * -1f, m_transform.localScale.y, m_transform.localScale.z);
+		Flip ();
+
 	}
 
 	void OnCollisionEnter2D(Collision2D other) {
-		Debug.Log ("Collision");
 		if (other.gameObject.tag == "weapon") {
-			Debug.Log ("Killed enemy");
 			Die ();
+		} else if (other.gameObject.tag == "wall") {
+			
 		}
 	}
 
@@ -101,8 +111,8 @@ public class WorkerController : MonoBehaviour {
 	}
 
 	void Flip() {
-		direction *= -1;
-		m_rigidBody2D.velocity = new Vector2 (m_rigidBody2D.velocity.x *  direction, -9f);
-		m_transform.localScale = new Vector3 (m_transform.localScale.x * -1, m_transform.localScale.y, m_transform.localScale.z);
+		m_rigidBody2D.velocity = new Vector2(speed * direction, - 9f);
+		if (direction != currentDirection)
+			m_transform.localScale = new Vector3 (m_transform.localScale.x * -1f, m_transform.localScale.y, m_transform.localScale.z);
 	}
 }

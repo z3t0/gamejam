@@ -57,8 +57,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   m_transform: {fileID: 4000010707157038}
-  size: 0
-  range: 1.5
   floor: 0
   targetFloor: 0
   goesUp: 0
@@ -90,7 +88,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 89abf72d4847e47ed83011a4d5806873, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

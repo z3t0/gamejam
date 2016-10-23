@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - weapon
+  - wall
+  - player
   layers:
   - Default
   - TransparentFX
@@ -17,10 +19,10 @@ TagManager:
   - Ground
   - Item
   - Player
-  - Enemy
-  - 
-  - 
-  - 
+  - Walker
+  - DeskWorker
+  - Boss
+  - Powerup
   - 
   - 
   - 
