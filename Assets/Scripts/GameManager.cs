@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour {
 	public float timer = 0f;
 	public float timerLength = 30f;
 
+	public GameObject youreFired;
+
 	// Use this for initialization
 	void Start () {
 
@@ -152,12 +154,12 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Fired() {
-		m_camera.gameObject.GetComponent<AudioSource>().clip = loseGameSound;
-		m_camera.gameObject.GetComponent<AudioSource> ().Play ();
+		m_camera.gameObject.GetComponent<AudioSource> ().Pause ();
 		endGameObject.SetActive (true);
 		endGameObject.GetComponent<Text> ().text = "You're fired!";
 		endGameObject.GetComponent<Text> ().color = Color.red;
 //		Time.timeScale = 0;
+		youreFired.SetActive(true);
 		m_playerController.controllable = false;
 		Debug.Log ("end game");
 	}

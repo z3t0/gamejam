@@ -87,12 +87,12 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2f76c8abc482547339edfe0920aa4c83, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.167
+  m_Volume: 0.048
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
-  Priority: 51
+  Priority: 23
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 50
@@ -192,7 +192,7 @@ MonoBehaviour:
   hurtSound: {fileID: 8300000, guid: 147a6e60ec1cd4ac096277494d59d392, type: 3}
   sensed: 0
   walkSpeed: 5
-  runSpeed: 20
+  runSpeed: 13
 --- !u!212 &212000013213360486
 SpriteRenderer:
   m_ObjectHideFlags: 1
