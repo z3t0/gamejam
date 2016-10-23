@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject endGameObject;
 
 	public float timer = 0f;
-	public float timerLength = 30f;
+	public float timerLength = 15f;
 
 	public GameObject youreFired;
 
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour {
 
 		levelText.text = "Level: " + level.ToString();
 
-		if (timer == 0f) {
+		if (timer <= 0f) {
 			level++;
 			timer = timerLength;
 		} else {

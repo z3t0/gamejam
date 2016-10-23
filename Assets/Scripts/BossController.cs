@@ -31,10 +31,27 @@ public class BossController : MonoBehaviour {
 
 	float speed = 0;
 
+	float health;
+	float maxHealth;
+	public Transform healthBar;
+
 	// Use this for initialization
 	void Start () {
 		sensed = false;
 		hasSensed = false;
+		speed = 3;
+		maxHealth = 1 * m_gameManager.level;	
+		health = maxHealth;
+
+		if(health < 1) {
+			health = 1;
+			maxHealth = 1;
+		}
+
+		if (health >= 5) {
+			health = 5;
+			maxHealth = 5;
+		}
 	}
 
 	void FixedUpdate() {
@@ -43,6 +60,8 @@ public class BossController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
+		speed = m_gameManager.level * 3;
 
 		if (Physics2D.OverlapCircle (m_transform.position, 0.5f, playerLayer)) {
 			m_gameManager.Fired ();
@@ -106,12 +125,19 @@ public class BossController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D other) {
 		if (other.gameObject.tag == "weapon") {
-			Die ();
+			Hurt ();
 		} else if (other.gameObject.tag == "wall") {
 
 		}
 	}
 		
+
+	void Hurt() {
+		health -= (health / maxHealth);
+		if (health <= 0)
+			Die ();
+		healthBar.localScale = new Vector3 (health / maxHealth, healthBar.localScale.y, healthBar.localScale.z);
+	}
 	void Fired() {
 		m_gameManager.Fired ();
 
