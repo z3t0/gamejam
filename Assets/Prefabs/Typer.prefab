@@ -24,6 +24,7 @@ GameObject:
   - 50: {fileID: 50000010936786390}
   - 114: {fileID: 114000011485891238}
   - 82: {fileID: 82000011658232992}
+  - 95: {fileID: 95000013672597126}
   m_Layer: 11
   m_Name: Typer
   m_TagString: Untagged
@@ -149,6 +150,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95000013672597126
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010850883144}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 95c623e51f49e4da3b9bd965f472bda5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114000011485891238
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -160,11 +178,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f745691173e894466b82fa5d785715f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointsGained: 25
   m_spawn: {fileID: 0}
   m_rigidBody2D: {fileID: 50000010936786390}
   m_collider: {fileID: 61000010125125530}
   m_gameManager: {fileID: 0}
   m_audioSource: {fileID: 82000011658232992}
+  hurtSound: {fileID: 0}
 --- !u!212 &212000013232774626
 SpriteRenderer:
   m_ObjectHideFlags: 1

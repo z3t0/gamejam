@@ -12,7 +12,10 @@ public class EnemySpawn : MonoBehaviour {
 	public Transform m_transform;
 
 	public bool hasSpawned = false;
+	public bool lastHasSpawned = false;
 
+	public float countDown = 0;
+	public static int countDownLength = 15;
 
 	void Start() {
 
@@ -20,28 +23,41 @@ public class EnemySpawn : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (countDown > 0)
+			countDown -= 1 * Time.deltaTime;
+
+		if (countDown < 1) {
+			countDown = 0;
+		}
+			
+	}
+
+	public void Reset() {
+		countDown = (float) countDownLength;
 	}
 
 	public void Decide() {
-		if (hasSpawned)
+		
+		if (m_transform.childCount > 0)
 			return;
 		
+		
 		int chance = Random.Range (1, 100);
-		int difficulty = m_gameManager.level ;
+		int difficulty = m_gameManager.level;
 
 		// Boss
 //		if (chance <= (5 * difficulty)) {
 //			spawnBoss ();
 //		}
 
-//		else if (chance <= 30) {
+		//		else if (chance <= 30) {
+		if (chance <= 30) {
 			spawnDeskPerson ();
-//		} 
+		} 
 //			
-//		else if (chance <= 75) { // probability of 25%
-//			spawnWorker ();
-//		} 
+		else if (chance <= 75) { // probability of 25%
+			spawnWorker ();
+		} 
 
 	}
 
@@ -50,13 +66,20 @@ public class EnemySpawn : MonoBehaviour {
 	}
 
 	void spawnWorker() {
+		hasSpawned = true;
+		GameObject go = Instantiate (workerPrefab, m_transform) as GameObject;
+		WorkerController worker = go.GetComponent<WorkerController> ();
+		go.GetComponent<Transform> ().localPosition = new Vector3 (0, 0, 0);
 
+		worker.m_spawn = this;
+		worker.m_gameManager = m_gameManager;
 	}
 
 	void spawnDeskPerson() {
 		hasSpawned = true;
 		GameObject go = Instantiate (deskPersonPrefab, m_transform) as GameObject;
 		DeskWorker worker = go.GetComponent<DeskWorker> ();
+		go.GetComponent<Transform> ().localPosition = new Vector3 (0, 0, 0);
 
 		worker.m_spawn = this;
 		worker.m_gameManager = m_gameManager;

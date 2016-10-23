@@ -8,8 +8,8 @@ public class Elevator : MonoBehaviour {
 
 	public Transform m_transform;
 
-	public float size;
-	public float range;
+	private float size = 1f;
+	private float range = 3f;
 
 	public int floor;
 	public int targetFloor;
@@ -34,7 +34,7 @@ public class Elevator : MonoBehaviour {
 		bool isInRange = Physics2D.OverlapCircle(m_transform.position, range, playerLayer);
 
 		if (!isInRange && (m_gameManager.floor == floor)) {
-			m_gameManager.ElevatorStatus(false);	
+			
 		}
 
 	}

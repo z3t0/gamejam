@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
 	[SerializeField]
 	private EnemySpawn[] enemySpawns;
+	[SerializeField]
 	private Elevator[] elevators;
 	public int level = 1;
 	public int floor = 1;
@@ -16,7 +18,13 @@ public class GameManager : MonoBehaviour {
 	public Transform m_playerTransform;
 	public PlayerController m_playerController;
 
+	public Text scoreText;
+
 	public bool hasUsedElevator;
+
+	float elevatorCountDown = 0;
+	float countDownLength = 3f;
+	bool counting = false;
 
 	// Use this for initialization
 	void Start () {
@@ -41,16 +49,35 @@ public class GameManager : MonoBehaviour {
 			if (!spawn.hasSpawned)
 				spawn.Decide ();
 		}
+
+		if (elevatorCountDown <= 0) {
+
+			if (hasUsedElevator && counting) {
+				hasUsedElevator = false;
+				counting = false;
+			} else if(hasUsedElevator && !counting) {
+				elevatorCountDown = countDownLength;
+				counting = true;
+			}
+		}
+
+		if (counting) {
+			elevatorCountDown -= 1 * Time.deltaTime;
+		}
 	}
 
 	public void AddScore(int val) {
 		score += val;
+		scoreText.text = "Score: " + score.ToString ();
+
 	}
 
 	public void GoToFloor(int target) {
 
 		if (hasUsedElevator)
 			return;
+
+		hasUsedElevator = true;
 
 		bool targetGoesUp = false;
 
@@ -67,7 +94,6 @@ public class GameManager : MonoBehaviour {
 			if (elevator.goesUp == targetGoesUp && (elevator.floor == target)) {
 //				 Found correct elevator
 				m_playerTransform.position = elevator.m_transform.position;
-				hasUsedElevator = true;
 			}
 		}
 

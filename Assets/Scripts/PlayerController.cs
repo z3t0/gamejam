@@ -12,8 +12,10 @@ public class PlayerController : MonoBehaviour {
 	public Transform m_timeBar;
 	public Transform ballSpawn;
 	public Transform m_staminaBar;
+	public Transform m_resetTarget;
 
 	public GameManager m_gameManager;
+	public GameObject MiniMap;
 
 	public LayerMask groundLayer;
 	public LayerMask playerLayer;
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour {
 	public float depleteStamina = 10.0f;
 	public float gravity = -9.0f;
 
+
 	float distToGround;
 
 	bool flipped = false;
@@ -51,20 +54,18 @@ public class PlayerController : MonoBehaviour {
 		stamina = 100;
 		m_audioSource.clip = runSound;
 
+		Reset ();
 
+	}
+
+	void Reset() {
+		m_transform.position = m_resetTarget.position;
+		m_transform.rotation = Quaternion.Euler (0, 0, 0);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonDown (0)) {
-			Vector3 pos = m_camera.ScreenToWorldPoint (Input.mousePosition);
-			Debug.Log ("click");
-
-			if (!shooting) {
-				Debug.Log ("shoot");
-				m_animator.SetBool ("Shooting", true);
-			}
-		}
+		
 	}
 
 	void FixedUpdate() {
@@ -126,9 +127,26 @@ public class PlayerController : MonoBehaviour {
 				m_audioSource.Pause ();
 		}
 
-		if (Input.GetKey (KeyCode.Space) && isGrounded){
+		if (Input.GetKey (KeyCode.UpArrow) && isGrounded){
 			y += jumpSpeed;
 			Tire (15f);
+		}
+
+		if (Input.GetKeyDown (KeyCode.R)) {
+			Reset ();
+		}
+		if (Input.GetKeyDown (KeyCode.M)) {
+			MiniMap.SetActive (!MiniMap.active);
+		}
+
+		if (Input.GetKey(KeyCode.Space)) {
+			Vector3 pos = m_camera.ScreenToWorldPoint (Input.mousePosition);
+			Debug.Log ("click");
+
+			if (!shooting) {
+				Debug.Log ("shoot");
+				m_animator.SetBool ("Shooting", true);
+			}
 		}
 
 
