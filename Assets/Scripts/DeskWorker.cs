@@ -8,6 +8,7 @@ public class DeskWorker : MonoBehaviour {
 	public Rigidbody2D m_rigidBody2D;
 	public BoxCollider2D m_collider;
 	public GameManager m_gameManager;
+	public AudioSource m_audioSource;
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +29,7 @@ public class DeskWorker : MonoBehaviour {
 	}
 
 	void Die() {
+		m_audioSource.Play ();
 		m_spawn.hasSpawned = false;
 		m_collider.enabled = false;
 

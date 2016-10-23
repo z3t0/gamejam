@@ -18,7 +18,7 @@ public class SmoothFollow : MonoBehaviour {
 			Vector3 delta = target.position - m_camera.ViewportToWorldPoint (new Vector3 (0.5f, 0.5f, point.z));
 
 			Vector3 destination = transform.position + delta;
-			transform.position = Vector3.SmoothDamp(transform.position, new Vector3(destination.x, 0, destination.z), ref velocity, dampTime);
+			transform.position = Vector3.SmoothDamp(transform.position, new Vector3(destination.x, destination.y + 2f, destination.z), ref velocity, dampTime);
 		}
 	}
 }

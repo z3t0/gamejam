@@ -51,7 +51,6 @@ public class PlayerController : MonoBehaviour {
 		stamina = 100;
 		m_audioSource.clip = runSound;
 
-	
 
 	}
 	
@@ -79,7 +78,7 @@ public class PlayerController : MonoBehaviour {
 		float x = 0;
 		float y = 0;
 
-		float threshold = 0.5f;
+		float threshold = 0.2f;
 
 		if (h < -threshold) {
 			// Flip
