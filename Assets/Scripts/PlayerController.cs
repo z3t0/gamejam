@@ -140,7 +140,10 @@ public class PlayerController : MonoBehaviour {
 		if (!shooting) {
 			GameObject ball = Instantiate (ballPrefab, ballSpawn) as GameObject;
 			ball.transform.localPosition = Vector3.zero;
-			ball.GetComponent<Rigidbody2D>().AddForce(new Vector2(shootX, shootY), ForceMode2D.Impulse);
+			if (flipped)
+				ball.GetComponent<Rigidbody2D>().AddForce(new Vector2(-shootX, shootY), ForceMode2D.Impulse);
+			else 
+				ball.GetComponent<Rigidbody2D>().AddForce(new Vector2(shootX, shootY), ForceMode2D.Impulse);
 			shooting = true;
 		}
 	}
